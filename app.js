@@ -9,6 +9,7 @@ const hpp = require('hpp');
 const csp = require('express-csp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -35,6 +36,7 @@ const limiter = rateLimit({
 });
 
 /* GLOBAL MIDDLEWARES */
+app.use(cors());
 
 /* Set security HTTP headers */
 app.use(helmet());
