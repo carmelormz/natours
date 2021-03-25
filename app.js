@@ -18,6 +18,7 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const { webhookCheckout } = require('./controllers/bookingController');
 
 const app = express();
 
@@ -107,6 +108,13 @@ csp.extend(app, {
     },
   },
 });
+
+/* STRIPE WEBHOOK*/
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  webhookCheckout
+);
 
 /* Body Parser */
 app.use(express.json({ limit: '10kb' }));
