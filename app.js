@@ -30,6 +30,13 @@ app.set('views', path.join(__dirname, 'views'));
 /* Serving static files */
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* STRIPE WEBHOOK*/
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  webhookCheckout
+);
+
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
@@ -108,13 +115,6 @@ csp.extend(app, {
     },
   },
 });
-
-/* STRIPE WEBHOOK*/
-app.post(
-  '/webhook-checkout',
-  express.raw({ type: 'application/json' }),
-  webhookCheckout
-);
 
 /* Body Parser */
 app.use(express.json({ limit: '10kb' }));
