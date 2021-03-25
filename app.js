@@ -36,7 +36,8 @@ const limiter = rateLimit({
 });
 
 /* GLOBAL MIDDLEWARES */
-app.use(cors());
+app.use(cors()); // Just allows CORS for 'Simple' request
+app.options('*', cors()); // To allow CORS of PUT, PATCH, DELETE
 
 /* Set security HTTP headers */
 app.use(helmet());
